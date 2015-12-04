@@ -1,11 +1,11 @@
 module.exports = function (grunt) {
-    
+
 grunt.initConfig({
     connect: {
         server: {
             options: {
                 keepalive: true,
-                hostname: 'localhost',
+                hostname: '172.30.200.86',
                 port: 8003
             }
         }

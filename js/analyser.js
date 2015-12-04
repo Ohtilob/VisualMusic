@@ -27,6 +27,6 @@ function getFftSize() {
 return {
     getData: getData,
     getFftSize: getFftSize
-}
+};
 
 });

@@ -22,16 +22,22 @@ var canvas = util.getById('visual-canvas'),
         '231, 32, 78',
         '12, 202, 186',
         '255, 0, 111'
-    ]; // 颜色集
-    
+    ],
+    ws = new WebSocket("ws://172.30.200.139:81"); // 颜色集
+
 // 绘制
-function draw() {
+function draw(socketData) {
     ctx.save();
-    data = analyser.getData();
+    if(socketData !== undefined){
+      data = socketData;
+    }else{
+      data = analyser.getData();
+      ws.send(data);
+    }
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     for (i = 0, len = data.length; i < len; i = i + 5) {
         p = particles[i];
-        if (p.size == 0 ) {
+        if (p.size === 0 ) {
             p.size = data[i];
         } else {
             if (p.size < data[i]) {
@@ -42,7 +48,7 @@ function draw() {
                 }
             } else {
                 p.size -= Math.floor((p.size - data[i]) / 5);
-                if (data[i] == 0) {
+                if (data[i] === 0) {
                     p.opacity = 0;
                 } else {
                     p.opacity = p.opacity - 0.02;
@@ -65,6 +71,25 @@ function draw() {
 }
 
 function init() {
+
+    ws.onopen = function()
+    {
+       // Web Socket is connected, send data using send()
+       console.log("Websocket Connected");
+    };
+
+    ws.onmessage = function (evt)
+    {
+       //var received_msg = evt.data;
+       //ws.send("");
+       draw(evt.data);
+    };
+
+    ws.onclose = function()
+    {
+       console.log("Websocket Closed");
+    };
+
     util.setBg(0);
     var i, len = analyser.getFftSize() / 2,
         width = canvas.width,
@@ -77,7 +102,7 @@ function init() {
             color: 'rgba(' + colors[Math.floor(Math.random() * colorNum)] + ', 0)',
             size: 0,
             opacity: Math.random() + 0.2
-        }
+        };
     }
     initOrNot = true;
 }
@@ -101,6 +126,6 @@ return {
     cover: cover,
     enable: enable,
     disable: disable
-}
+};
 
 });

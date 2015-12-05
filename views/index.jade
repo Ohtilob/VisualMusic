@@ -1,0 +1,28 @@
+doctype html
+html
+  head
+    meta(charset='utf-8')
+    title VisualMusic
+    link(rel='shortcut icon', href='../img/favicon.ico')
+    link(rel='stylesheet', href='../css/style.css')
+  body
+    #main-bg
+    #background
+    canvas#visual-canvas
+    #threed-webgl-renderer.hidden
+    audio#music.hidden(controls='')
+    input#input-file.hidden(type='file', accept='audio/mp3', multiple='')
+    h1#title
+      | Please drag your music files here
+      #file-list-wrapper
+        .header Play List
+        ul#file-list
+      #effect-list-wrapper
+        .header Effect List
+        ul#effect-list
+      #play-mode
+      #fullscreen
+      #song-name
+      script(src='../bower_components/three.js/three.min.js')
+      script(src='../bower_components/jquery/dist/jquery.min.js')
+      script(src='../bower_components/requirejs/require.js', data-main='js/main')

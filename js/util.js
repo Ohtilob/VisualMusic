@@ -3,7 +3,8 @@ define(function () {
 
 var $background = $('#background'),
     $canvas = $('#visual-canvas'),
-    doc = document;
+    doc = document,
+    websocket = "ws://172.30.200.139:81";
 
 // document.getElementById的缩写
 function getById(id) {
@@ -15,7 +16,7 @@ function getRidOfExtention(str) {
     return str.replace(/\.[0-9a-z]+$/i, '');
 }
 
-/** 
+/**
  * 取得整数随机数
  * @param {Number} down 下限
  * @param {Number} up 上限
@@ -58,6 +59,7 @@ function hideCanvas() {
 }
 
 return {
+    websocket: websocket,
     getById: getById,
     getRidOfExtention: getRidOfExtention,
     intRandom: intRandom,

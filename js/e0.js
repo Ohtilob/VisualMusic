@@ -33,87 +33,100 @@ var canvas = util.getById('visual-canvas'),
 // 绘制
 function draw(socketData) {
     ctx.save();
-    if(socketData !== undefined){
-      data = socketData;
+
+    //if(socketData !== undefined){
+    //console.log(window.clientMode)
+    if(window.clientMode === true){
+      if(socketData !== undefined){
+        //console.log("socketData is defined");
+        var array = JSON.parse("[" + socketData + "]");
+        data = array;
+      }
     }else{
+      //console.log("socketData is NOT defined");
       data = analyser.getData();
       try{
-        ws.send(data);
+        //console.log(data.toString());
+        ws.send(data.toString());
       }catch(err){
+        console.log(err);
         //do Nothing
       }
     }
 
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    for (i = 0, len = data.length; i < len; i = i + 5) {
-        p = particles[i];
-        if (p.size === 0 ) {
-            p.size = data[i];
-            p.x = Math.random() * canvas.width;
-            p.y = Math.random() * canvas.height;
-            //left 1 right 2 up 3 down 4
-            p.direction = Math.floor((Math.random() * 4) + 1);
-        } else {
-            //See if the circle is growing
-            if (p.size < data[i]) {
-                p.size += Math.floor((data[i] - p.size) / 5);
-                p.opacity = p.opacity + 0.02;
+    if (data !== undefined) {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (i = 0, len = data.length; i < len; i = i + 5) {
+          p = particles[i];
+          if (p.size === 0 ) {
+              p.size = data[i];
+              p.x = Math.random() * canvas.width;
+              p.y = Math.random() * canvas.height;
+              //left 1 right 2 up 3 down 4
+              p.direction = Math.floor((Math.random() * 4) + 1);
+          } else {
+              //See if the circle is growing
+              if (p.size < data[i]) {
+                  p.size += Math.floor((data[i] - p.size) / 5);
+                  p.opacity = p.opacity + 0.02;
 
-                if(p.direction === 1 &&  p.x > 0){
-                  p.x = p.x -1;
-                }
-                if(p.direction === 2 &&  p.x < canvas.width){
-                  p.x = p.x + 1;
-                }
-                if(p.x < 0){
-                  p.direction = 2;
-                }
-                if(p.x > canvas.width){
-                  p.direction = 1;
-                }
+                  if(p.direction === 1 &&  p.x > 0){
+                    p.x = p.x -1;
+                  }
+                  if(p.direction === 2 &&  p.x < canvas.width){
+                    p.x = p.x + 1;
+                  }
+                  if(p.x < 0){
+                    p.direction = 2;
+                  }
+                  if(p.x > canvas.width){
+                    p.direction = 1;
+                  }
 
-                if(p.direction === 3 &&  p.y > 0){
-                  p.y = p.y -1;
-                }
-                if(p.direction === 4 &&  p.y < canvas.height){
-                  p.y = p.y + 1;
-                }
-                if(p.y < 0){
-                  p.direction = 4;
-                }
-                if(p.y > canvas.height){
-                  p.direction = 3;
-                }
+                  if(p.direction === 3 &&  p.y > 0){
+                    p.y = p.y -1;
+                  }
+                  if(p.direction === 4 &&  p.y < canvas.height){
+                    p.y = p.y + 1;
+                  }
+                  if(p.y < 0){
+                    p.direction = 4;
+                  }
+                  if(p.y > canvas.height){
+                    p.direction = 3;
+                  }
 
 
-                if (p.opacity > 1) {
-                    p.opacity = 1;
-                }
-            } else {
-                p.size -= Math.floor((p.size - data[i]) / 5);
-                if (data[i] === 0) {
-                    p.opacity = 0;
-                } else {
-                    p.opacity = p.opacity - 0.0175;
-                    if (p.opacity < 0) {
-                        p.opacity = 0;
-                        p.x = Math.random() * canvas.width;
-                        p.y = Math.random() * canvas.height;
-                    }
-                }
-            }
-        }
-        var emptyColor = p.color;
-        var color = p.color.replace('0)', p.opacity + ')');
-        // ctx.fillStyle = color;
-        // ctx.beginPath();
-        // ctx.arc(p.x, p.y, p.size, 0, 2 * Math.PI, true);
-        // ctx.closePath();
-        // ctx.fill();
-        drawCircle(p.x,p.y,p.size,color, emptyColor);
+                  if (p.opacity > 1) {
+                      p.opacity = 1;
+                  }
+              } else {
+                  p.size -= Math.floor((p.size - data[i]) / 5);
+                  if (data[i] === 0) {
+                      p.opacity = 0;
+                  } else {
+                      p.opacity = p.opacity - 0.0175;
+                      if (p.opacity < 0) {
+                          p.opacity = 0;
+                          p.x = Math.random() * canvas.width;
+                          p.y = Math.random() * canvas.height;
+                      }
+                  }
+              }
+          }
+          var emptyColor = p.color;
+          var color = p.color.replace('0)', p.opacity + ')');
+          // ctx.fillStyle = color;
+          // ctx.beginPath();
+          // ctx.arc(p.x, p.y, p.size, 0, 2 * Math.PI, true);
+          // ctx.closePath();
+          // ctx.fill();
+          drawCircle(p.x,p.y,p.size,color, emptyColor);
 
+      }
+      ctx.restore();
     }
-    ctx.restore();
+
 }
 
 function drawCircle(cx,cy,size,color, emptyColor){
@@ -141,7 +154,12 @@ function init() {
     {
        //var received_msg = evt.data;
        //ws.send("");
-       draw(evt.data);
+       //console.log(audio);
+       if(window.clientMode === true){
+         //console.log(evt.data);
+         draw(evt.data);
+       }
+
     };
 
     ws.onclose = function()

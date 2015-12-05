@@ -1,5 +1,6 @@
-var currentIP = '192.168.1.136';
+var currentIP = '192.168.1.122';
 var express = require('express');
+var WebSocketServer = require("websocketserver");
 var app = express();
 
 app.set('view engine', 'jade');
@@ -23,4 +24,54 @@ app.use('/bower_components', express.static(__dirname + '/bower_components'));
 
 app.get('/', function(req, res){
     res.render('index', {title:'Christmas'});
+});
+
+//var wss = new WebSocketServer({server: server});
+var wss = new WebSocketServer("none", 3001);
+console.log("websocket server created");
+
+var connectionList = [];
+wss.broadcast = function(data) {
+  for (var i in this.clients)
+    this.connectionList[i].send(data);
+};
+
+wss.on("connection", function(ws) {
+    console.log("client connected");
+    connectionList.push(ws);
+    //wss.sendMessage("one", "Hello Client", ws);
+});
+
+wss.on("message", function(data, id) {
+    var mes = wss.unmaskMessage(data);
+    var str = wss.convertToString(mes.message);
+    //console.log("message: Start|" + str.trim() + "|End");
+    if (str.trim() !== "") {
+      var array = JSON.parse("[" + str + "]");
+
+      var i;
+      for(i = 0; i < connectionList.length; i++) {
+        var a = array;
+        // if (i === 1) {
+        //   //console.log("For Client 1");
+        //   a.forEach(function(item, i) { if (item <= 0 || item >= 100) a[i] = 0; });
+        // } else {
+        //   //console.log("For Client 2");
+        //   a.forEach(function(item, i) { if (item <= 101 || item >= 255) a[i] = 0; });
+        // }
+
+
+        wss.sendMessage("one", a.toString(), connectionList[i]);
+      }
+    }
+
+});
+
+wss.on("closedconnection", function(id) {
+  console.log("Client " + id + " has left the server");
+  for(var i = connectionList.length-1; i >= 0; i--){
+      if(connectionList[i] == id){
+          connectionList.splice(i,1);
+      }
+  }
 });

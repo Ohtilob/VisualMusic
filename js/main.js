@@ -1,5 +1,6 @@
 // 主程序
 require(['util', 'effect'], function (util, effect) {
+var clientMode = false;
 
 var $body = $('body'),
     $fileList = $('#file-list'),
@@ -23,6 +24,7 @@ var $body = $('body'),
     timer = null; // 触发器
 
 function loadFile(file) {
+  if (file !== '') {
     var data = URL.createObjectURL(file);
     $title.text('');
     $music.removeClass('hidden');
@@ -30,6 +32,13 @@ function loadFile(file) {
     audio.src = data;
     audio.play();
     effect.beginDraw();
+  } else {
+    $title.text('');
+    $music.removeClass('hidden');
+    $helpWrapper.addClass('hidden');
+    effect.beginDraw();
+  }
+
 };
 
 // 增加文件
@@ -170,7 +179,7 @@ function loadSetting() {
 loadSetting();
 
 /**
- * 设置当前播放曲目 
+ * 设置当前播放曲目
  * @param {Number} num 曲目序号
  */
 function setCurrentSong(num) {
@@ -240,6 +249,11 @@ $body.on('click', '#help-btn', function() {
 }).on('click', '#fullscreen', function() {
     // 全屏切换
     util.fullscreenSwitch();
+}).on('click', '#clientmode', function() {
+    // 全屏切换
+    window.clientMode = true;
+    util.fullscreenSwitch();
+    loadFile('');
 });
 
 // 文件拖曳

@@ -39,8 +39,8 @@ function draw(socketData) {
     if(window.clientMode === true){
       if(socketData !== undefined){
         //console.log("socketData is defined");
-        var array = JSON.parse("[" + socketData + "]");
-        data = array;
+        //var array = JSON.parse("[" + socketData + "]");
+        data = socketData;
       }
     }else{
       //console.log("socketData is NOT defined");
@@ -157,9 +157,16 @@ function init() {
        //console.log(audio);
        if(window.clientMode === true){
          //console.log(evt.data);
-         draw(evt.data);
+         if (evt.data !== undefined) {
+           var hiFreq = getUrlParams()["hi"];
+           var loFreq = getUrlParams()["lo"];
+           var array = JSON.parse("[" + evt.data + "]");
+           //console.log("High=" + hiFreq + " | Low=" + loFreq)
+           array.forEach(function(item, i) { if (item <= loFreq || item >= hiFreq) array[i] = 0; });
+           //console.log(array);
+           draw(array);
+         }
        }
-
     };
 
     ws.onclose = function()
@@ -182,6 +189,14 @@ function init() {
         };
     }
     initOrNot = true;
+}
+
+function getUrlParams() {
+  var vars = {};
+  var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+    vars[key] = value;
+  });
+  return vars;
 }
 
 function isInit() {

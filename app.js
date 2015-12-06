@@ -48,21 +48,21 @@ wss.on("message", function(data, id) {
     //console.log("message: Start|" + str.trim() + "|End");
     if (str.trim() !== "") {
       var array = JSON.parse("[" + str + "]");
-
-      var i;
-      for(i = 0; i < connectionList.length; i++) {
-        var a = array;
-        // if (i === 1) {
-        //   //console.log("For Client 1");
-        //   a.forEach(function(item, i) { if (item <= 0 || item >= 100) a[i] = 0; });
-        // } else {
-        //   //console.log("For Client 2");
-        //   a.forEach(function(item, i) { if (item <= 101 || item >= 255) a[i] = 0; });
-        // }
-
-
-        wss.sendMessage("one", a.toString(), connectionList[i]);
-      }
+      wss.sendMessage("others", array.toString(), id);
+      // var i;
+      // for(i = 0; i < connectionList.length; i++) {
+      //   var a = array;
+      //   // if (i === 1) {
+      //   //   //console.log("For Client 1");
+      //   //   a.forEach(function(item, i) { if (item <= 0 || item >= 100) a[i] = 0; });
+      //   // } else {
+      //   //   //console.log("For Client 2");
+      //   //   a.forEach(function(item, i) { if (item <= 101 || item >= 255) a[i] = 0; });
+      //   // }
+      //
+      //
+      //   wss.sendMessage("one", a.toString(), connectionList[i]);
+      // }
     }
 
 });

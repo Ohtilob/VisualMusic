@@ -35,7 +35,7 @@ function loadFile(file) {
   } else {
     $title.text('');
     $music.removeClass('hidden');
-    $helpWrapper.addClass('hidden');
+    //$helpWrapper.addClass('hidden');
     effect.beginDraw();
   }
 
@@ -251,10 +251,12 @@ $body.on('click', '#help-btn', function() {
     util.fullscreenSwitch();
 }).on('click', '#clientmode', function() {
     // 全屏切换
+    $('#controls').hide();
     window.clientMode = true;
-    util.fullscreenSwitch();
     loadFile('');
 });
+
+
 
 // 文件拖曳
 doc.addEventListener('drop', function(e) {

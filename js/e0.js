@@ -24,9 +24,10 @@ var canvas = util.getById('visual-canvas'),
     colors = [
         '74, 167, 167',
         '147, 184, 73',
-        '80, 54, 42',
         '168, 0, 48',
-        '221, 221, 194'
+        '221, 221, 194',
+        '141,31,31',
+        '52,80,43'
     ],
     ws = new WebSocket(util.websocket); // 颜色集
 

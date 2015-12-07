@@ -7,6 +7,7 @@ var audio = util.getById('music'),
     audioSource = audioContext.createMediaElementSource(audio);
 
 analyser.fftSize = 512;
+//var dataArray = new Uint8Array(analyser.fftSize);
 var freqByteData = new Uint8Array(analyser.frequencyBinCount);
 
 // 连接音频源跟分析器
@@ -15,6 +16,9 @@ analyser.connect(audioContext.destination);
 
 // 获取数据
 function getData() {
+    // analyser.getByteTimeDomainData(dataArray);
+    // console.log(dataArray);
+    // return dataArray;
     analyser.getByteFrequencyData(freqByteData);
     return freqByteData;
 }

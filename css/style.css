@@ -3,6 +3,16 @@
  * B2: #258ecd
  * R1: #f2807e
  */
+
+#toplayer{
+  background-color: black;
+  width:100%;
+  height: 100%;
+  z-index: 1000;
+  position: absolute;
+  display: none;
+}
+
 * {
     margin: 0;
     padding: 0;

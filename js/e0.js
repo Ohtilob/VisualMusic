@@ -1,5 +1,6 @@
 define(['analyser', 'util'], function (analyser, util) {
-
+var start, now, onOff, twinkleCount = 0;
+var $toplayer = $('#toplayer');
 var cover = 'e0.jpg';
 var canvas = util.getById('visual-canvas'),
     ctx = canvas.getContext('2d'),
@@ -34,6 +35,10 @@ var canvas = util.getById('visual-canvas'),
 // 绘制
 function draw(socketData) {
     ctx.save();
+    now = new Date().getTime();
+    if(window.log){
+      console.log(now - start);
+    }
 
     //if(socketData !== undefined){
     //console.log(window.clientMode)
@@ -56,6 +61,11 @@ function draw(socketData) {
     }
 
     if (data !== undefined) {
+      if(data[onOff] === 1){
+        $toplayer.hide();
+      }else{
+        $toplayer.show();
+      }
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       for (i = 0, len = data.length; i < len; i = i + 5) {
           p = particles[i];
@@ -144,6 +154,142 @@ function drawCircle(cx,cy,size,color, emptyColor){
 }
 
 function init() {
+    start = new Date().getTime();
+    var $toplayer = $('#toplayer');
+    window.log = true;
+    onOff = getUrlParams()["onOff"];
+
+    setTimeout(function(){
+      analyser.setMonitorState("monitor0", 0);
+      analyser.setMonitorState("monitor1", 0);
+      analyser.setMonitorState("monitor2", 0);
+    },0);
+
+    setTimeout(function(){
+      analyser.setMonitorState("monitor0", 1);
+      analyser.setMonitorState("monitor1", 0);
+      analyser.setMonitorState("monitor2", 0);
+    },5000);
+
+    setTimeout(function(){
+      analyser.setMonitorState("monitor0", 1);
+      analyser.setMonitorState("monitor1", 1);
+      analyser.setMonitorState("monitor2", 0);
+    },6600);
+
+    setTimeout(function(){
+      analyser.setMonitorState("monitor0", 1);
+      analyser.setMonitorState("monitor1", 1);
+      analyser.setMonitorState("monitor2", 1);
+    },7600);
+
+    setTimeout(function(){
+      analyser.setMonitorState("monitor0", 1);
+      analyser.setMonitorState("monitor1", 0);
+      analyser.setMonitorState("monitor2", 1);
+    },8400);
+
+    setTimeout(function(){
+      analyser.setMonitorState("monitor0", 0);
+      analyser.setMonitorState("monitor1", 1);
+      analyser.setMonitorState("monitor2", 0);
+    },10194);
+
+    setTimeout(function(){
+      analyser.setMonitorState("monitor0", 1);
+      analyser.setMonitorState("monitor1", 0);
+      analyser.setMonitorState("monitor2", 1);
+    },11000);
+
+    setTimeout(function(){
+      analyser.setMonitorState("monitor0", 0);
+      analyser.setMonitorState("monitor1", 1);
+      analyser.setMonitorState("monitor2", 0);
+    },11950);
+
+    setTimeout(function(){
+      analyser.setMonitorState("monitor0", 1);
+      analyser.setMonitorState("monitor1", 0);
+      analyser.setMonitorState("monitor2", 1);
+    },13646);
+
+    setTimeout(function(){
+      analyser.setMonitorState("monitor0", 0);
+      analyser.setMonitorState("monitor1", 1);
+      analyser.setMonitorState("monitor2", 0);
+    },14522);
+
+    setTimeout(function(){
+      analyser.setMonitorState("monitor0", 1);
+      analyser.setMonitorState("monitor1", 1);
+      analyser.setMonitorState("monitor2", 1);
+    },15257);
+
+    setTimeout(function(){
+      var x = 1;
+      twinkleCount = 0;
+      twinkle(x);
+    },18898);
+
+    setTimeout(function(){
+      var x = 1;
+      twinkleCount = 0;
+      twinkle(x);
+    },32778);
+
+    function twinkle(x){
+      setTimeout(function(){
+        var y;
+        if(x === 0){
+          x = 1;
+          y = 0;
+        }else{
+          x = 0;
+          y = 1;
+        }
+        analyser.setMonitorState("monitor0", x);
+        analyser.setMonitorState("monitor1", y);
+        analyser.setMonitorState("monitor2", x);
+
+        if(twinkleCount < 10){
+          twinkleCount++;
+          twinkle(x);
+        }else{
+          analyser.setMonitorState("monitor0", 1);
+          analyser.setMonitorState("monitor1", 1);
+          analyser.setMonitorState("monitor2", 1);
+        }
+      }, 300);
+
+    }
+
+    ///Beginning
+    // setTimeout(function(){$toplayer.show()},0);
+    // setTimeout(function(){$toplayer.hide()},5000);
+    // setTimeout(function(){$toplayer.show()},6600);
+    // setTimeout(function(){$toplayer.hide()},7600);
+    // setTimeout(function(){$toplayer.show()},8400);
+    // setTimeout(function(){$toplayer.hide()},10194);
+    // setTimeout(function(){$toplayer.show()},11000);
+    // setTimeout(function(){$toplayer.hide()},11950);
+    // setTimeout(function(){$toplayer.show()},13646);
+    // setTimeout(function(){$toplayer.hide()},14522);
+    // setTimeout(function(){$toplayer.show()},15257);
+    //slide
+    // setTimeout(function(){$toplayer.hide()},17163);
+    //main
+    // setTimeout(function(){$toplayer.show()},18898);
+    // setTimeout(function(){$toplayer.hide()},22404);
+    // setTimeout(function(){$toplayer.show()},25771);
+    // setTimeout(function(){$toplayer.hide()},29349);
+    // setTimeout(function(){$toplayer.show()},32778);
+    //first word
+    // setTimeout(function(){$toplayer.hide()},46609);
+    //
+    // setTimeout(function(){$toplayer.show()},74424);
+    // setTimeout(function(){$toplayer.hide()},77898);
+    // setTimeout(function(){$toplayer.show()},81492);
+
 
     ws.onopen = function()
     {

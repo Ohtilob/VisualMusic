@@ -6,6 +6,11 @@ var audio = util.getById('music'),
     analyser = audioContext.createAnalyser(),
     audioSource = audioContext.createMediaElementSource(audio);
 
+var monitors = {};
+monitors.monitor0 = 0;
+monitors.monitor1 = 0;
+monitors.monitor2 = 0;
+
 analyser.fftSize = 512;
 //var dataArray = new Uint8Array(analyser.fftSize);
 var freqByteData = new Uint8Array(analyser.frequencyBinCount);
@@ -20,6 +25,9 @@ function getData() {
     // console.log(dataArray);
     // return dataArray;
     analyser.getByteFrequencyData(freqByteData);
+    freqByteData[0] = monitors.monitor0;
+    freqByteData[1] = monitors.monitor1;
+    freqByteData[2] = monitors.monitor2;
     return freqByteData;
 }
 
@@ -28,9 +36,14 @@ function getFftSize() {
     return analyser.fftSize;
 }
 
+function setMonitorState(monitorName, state){
+  monitors[monitorName] = state;
+}
+
 return {
     getData: getData,
-    getFftSize: getFftSize
+    getFftSize: getFftSize,
+    setMonitorState: setMonitorState
 };
 
 });

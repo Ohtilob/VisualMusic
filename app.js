@@ -1,4 +1,4 @@
-var currentIP = 'localhost';
+var currentIP = '172.30.200.86';
 var express = require('express');
 var WebSocketServer = require("websocketserver");
 var app = express();

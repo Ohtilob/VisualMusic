@@ -35,10 +35,10 @@ var canvas = util.getById('visual-canvas'),
 // 绘制
 function draw(socketData) {
     ctx.save();
-    now = new Date().getTime();
-    if(window.log){
-      console.log(now - start);
-    }
+    // now = new Date().getTime();
+    // if(window.log){
+    //   console.log(now - start);
+    // }
 
     //if(socketData !== undefined){
     //console.log(window.clientMode)
@@ -71,8 +71,8 @@ function draw(socketData) {
           p = particles[i];
           if (p.size === 0 ) {
               p.size = data[i];
-              p.x = Math.random() * canvas.width;
-              p.y = Math.random() * canvas.height;
+              // p.x = Math.random() * canvas.width;
+              // p.y = Math.random() * canvas.height;
               //left 1 right 2 up 3 down 4
               p.direction = Math.floor((Math.random() * 4) + 1);
           } else {
@@ -81,31 +81,31 @@ function draw(socketData) {
                   p.size += Math.floor((data[i] - p.size) / 5);
                   p.opacity = p.opacity + 0.02;
 
-                  if(p.direction === 1 &&  p.x > 0){
-                    p.x = p.x -1;
-                  }
-                  if(p.direction === 2 &&  p.x < canvas.width){
-                    p.x = p.x + 1;
-                  }
-                  if(p.x < 0){
-                    p.direction = 2;
-                  }
-                  if(p.x > canvas.width){
-                    p.direction = 1;
-                  }
-
-                  if(p.direction === 3 &&  p.y > 0){
-                    p.y = p.y -1;
-                  }
-                  if(p.direction === 4 &&  p.y < canvas.height){
-                    p.y = p.y + 1;
-                  }
-                  if(p.y < 0){
-                    p.direction = 4;
-                  }
-                  if(p.y > canvas.height){
-                    p.direction = 3;
-                  }
+                  // if(p.direction === 1 &&  p.x > 0){
+                  //   p.x = p.x -1;
+                  // }
+                  // if(p.direction === 2 &&  p.x < canvas.width){
+                  //   p.x = p.x + 1;
+                  // }
+                  // if(p.x < 0){
+                  //   p.direction = 2;
+                  // }
+                  // if(p.x > canvas.width){
+                  //   p.direction = 1;
+                  // }
+                  //
+                  // if(p.direction === 3 &&  p.y > 0){
+                  //   p.y = p.y -1;
+                  // }
+                  // if(p.direction === 4 &&  p.y < canvas.height){
+                  //   p.y = p.y + 1;
+                  // }
+                  // if(p.y < 0){
+                  //   p.direction = 4;
+                  // }
+                  // if(p.y > canvas.height){
+                  //   p.direction = 3;
+                  // }
 
 
                   if (p.opacity > 1) {
@@ -143,10 +143,10 @@ function draw(socketData) {
 function drawCircle(cx,cy,size,color, emptyColor){
 
   var grd = ctx.createRadialGradient(cx, cy, size/2, cx, cy, size);
-  grd.addColorStop(0, emptyColor);
-  grd.addColorStop(1, color);
-  ctx.fillStyle = grd;
-  // ctx.fillStyle = color;
+  // grd.addColorStop(0, emptyColor);
+  // grd.addColorStop(1, color);
+  // ctx.fillStyle = grd;
+  ctx.fillStyle = color;
   ctx.beginPath();
   ctx.arc(cx, cy, size, 0, 2 * Math.PI, true);
   ctx.closePath();
@@ -154,9 +154,9 @@ function drawCircle(cx,cy,size,color, emptyColor){
 }
 
 function init() {
-    start = new Date().getTime();
+    // start = new Date().getTime();
     var $toplayer = $('#toplayer');
-    window.log = true;
+    // window.log = true;
     onOff = getUrlParams()["onOff"];
 
     setTimeout(function(){

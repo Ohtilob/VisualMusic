@@ -4,7 +4,7 @@ define(function () {
 var $background = $('#background'),
     $canvas = $('#visual-canvas'),
     doc = document,
-    websocket = "ws://localhost:3001";
+    websocket = "ws://172.30.200.86:3001";
 
 // document.getElementById的缩写
 function getById(id) {

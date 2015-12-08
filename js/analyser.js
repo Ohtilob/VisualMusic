@@ -11,9 +11,10 @@ monitors.monitor0 = 0;
 monitors.monitor1 = 0;
 monitors.monitor2 = 0;
 
-analyser.fftSize = 512;
+analyser.fftSize = 256;
 //var dataArray = new Uint8Array(analyser.fftSize);
 var freqByteData = new Uint8Array(analyser.frequencyBinCount);
+
 
 // 连接音频源跟分析器
 audioSource.connect(analyser);
@@ -24,6 +25,7 @@ function getData() {
     // analyser.getByteTimeDomainData(dataArray);
     // console.log(dataArray);
     // return dataArray;
+    //console.log(freqByteData);
     analyser.getByteFrequencyData(freqByteData);
     freqByteData[0] = monitors.monitor0;
     freqByteData[1] = monitors.monitor1;

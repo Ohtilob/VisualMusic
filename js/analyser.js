@@ -36,19 +36,19 @@ function getData() {
     }
     var avg = total / timeDomainData.length;
 
-    if(avg >= 77){
+    if(avg >= 80){
       this.setMonitorState("monitor0", 1);
       this.setMonitorState("monitor1", 1);
       this.setMonitorState("monitor2", 1);
     }
 
-    if(avg > 74 && avg < 77){
+    if(avg > 70 && avg < 80){
       this.setMonitorState("monitor0", 0);
       this.setMonitorState("monitor1", 1);
       this.setMonitorState("monitor2", 0);
     }
 
-    if(avg <= 74){
+    if(avg <= 70){
       this.setMonitorState("monitor0", 0);
       this.setMonitorState("monitor1", 0);
       this.setMonitorState("monitor2", 0);

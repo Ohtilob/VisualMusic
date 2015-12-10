@@ -159,109 +159,109 @@ function init() {
     // window.log = true;
     onOff = getUrlParams()["onOff"];
 
-    setTimeout(function(){
-      analyser.setMonitorState("monitor0", 0);
-      analyser.setMonitorState("monitor1", 0);
-      analyser.setMonitorState("monitor2", 0);
-    },0);
-
-    setTimeout(function(){
-      analyser.setMonitorState("monitor0", 1);
-      analyser.setMonitorState("monitor1", 0);
-      analyser.setMonitorState("monitor2", 0);
-    },5000);
-
-    setTimeout(function(){
-      analyser.setMonitorState("monitor0", 1);
-      analyser.setMonitorState("monitor1", 1);
-      analyser.setMonitorState("monitor2", 0);
-    },6600);
-
-    setTimeout(function(){
-      analyser.setMonitorState("monitor0", 1);
-      analyser.setMonitorState("monitor1", 1);
-      analyser.setMonitorState("monitor2", 1);
-    },7600);
-
-    setTimeout(function(){
-      analyser.setMonitorState("monitor0", 1);
-      analyser.setMonitorState("monitor1", 0);
-      analyser.setMonitorState("monitor2", 1);
-    },8400);
-
-    setTimeout(function(){
-      analyser.setMonitorState("monitor0", 0);
-      analyser.setMonitorState("monitor1", 1);
-      analyser.setMonitorState("monitor2", 0);
-    },10194);
-
-    setTimeout(function(){
-      analyser.setMonitorState("monitor0", 1);
-      analyser.setMonitorState("monitor1", 0);
-      analyser.setMonitorState("monitor2", 1);
-    },11000);
-
-    setTimeout(function(){
-      analyser.setMonitorState("monitor0", 0);
-      analyser.setMonitorState("monitor1", 1);
-      analyser.setMonitorState("monitor2", 0);
-    },11950);
-
-    setTimeout(function(){
-      analyser.setMonitorState("monitor0", 1);
-      analyser.setMonitorState("monitor1", 0);
-      analyser.setMonitorState("monitor2", 1);
-    },13646);
-
-    setTimeout(function(){
-      analyser.setMonitorState("monitor0", 0);
-      analyser.setMonitorState("monitor1", 1);
-      analyser.setMonitorState("monitor2", 0);
-    },14522);
-
-    setTimeout(function(){
-      analyser.setMonitorState("monitor0", 1);
-      analyser.setMonitorState("monitor1", 1);
-      analyser.setMonitorState("monitor2", 1);
-    },15257);
-
-    setTimeout(function(){
-      var x = 1;
-      twinkleCount = 0;
-      twinkle(x);
-    },18898);
-
-    setTimeout(function(){
-      var x = 1;
-      twinkleCount = 0;
-      twinkle(x);
-    },32778);
-
-    function twinkle(x){
-      setTimeout(function(){
-        var y;
-        if(x === 0){
-          x = 1;
-          y = 0;
-        }else{
-          x = 0;
-          y = 1;
-        }
-        analyser.setMonitorState("monitor0", x);
-        analyser.setMonitorState("monitor1", y);
-        analyser.setMonitorState("monitor2", x);
-
-        if(twinkleCount < 10){
-          twinkleCount++;
-          twinkle(x);
-        }else{
-          analyser.setMonitorState("monitor0", 1);
-          analyser.setMonitorState("monitor1", 1);
-          analyser.setMonitorState("monitor2", 1);
-        }
-      }, 300);
-
-    }
+    // setTimeout(function(){
+    //   analyser.setMonitorState("monitor0", 0);
+    //   analyser.setMonitorState("monitor1", 0);
+    //   analyser.setMonitorState("monitor2", 0);
+    // },0);
+    //
+    // setTimeout(function(){
+    //   analyser.setMonitorState("monitor0", 1);
+    //   analyser.setMonitorState("monitor1", 0);
+    //   analyser.setMonitorState("monitor2", 0);
+    // },5000);
+    //
+    // setTimeout(function(){
+    //   analyser.setMonitorState("monitor0", 1);
+    //   analyser.setMonitorState("monitor1", 1);
+    //   analyser.setMonitorState("monitor2", 0);
+    // },6600);
+    //
+    // setTimeout(function(){
+    //   analyser.setMonitorState("monitor0", 1);
+    //   analyser.setMonitorState("monitor1", 1);
+    //   analyser.setMonitorState("monitor2", 1);
+    // },7600);
+    //
+    // setTimeout(function(){
+    //   analyser.setMonitorState("monitor0", 1);
+    //   analyser.setMonitorState("monitor1", 0);
+    //   analyser.setMonitorState("monitor2", 1);
+    // },8400);
+    //
+    // setTimeout(function(){
+    //   analyser.setMonitorState("monitor0", 0);
+    //   analyser.setMonitorState("monitor1", 1);
+    //   analyser.setMonitorState("monitor2", 0);
+    // },10194);
+    //
+    // setTimeout(function(){
+    //   analyser.setMonitorState("monitor0", 1);
+    //   analyser.setMonitorState("monitor1", 0);
+    //   analyser.setMonitorState("monitor2", 1);
+    // },11000);
+    //
+    // setTimeout(function(){
+    //   analyser.setMonitorState("monitor0", 0);
+    //   analyser.setMonitorState("monitor1", 1);
+    //   analyser.setMonitorState("monitor2", 0);
+    // },11950);
+    //
+    // setTimeout(function(){
+    //   analyser.setMonitorState("monitor0", 1);
+    //   analyser.setMonitorState("monitor1", 0);
+    //   analyser.setMonitorState("monitor2", 1);
+    // },13646);
+    //
+    // setTimeout(function(){
+    //   analyser.setMonitorState("monitor0", 0);
+    //   analyser.setMonitorState("monitor1", 1);
+    //   analyser.setMonitorState("monitor2", 0);
+    // },14522);
+    //
+    // setTimeout(function(){
+    //   analyser.setMonitorState("monitor0", 1);
+    //   analyser.setMonitorState("monitor1", 1);
+    //   analyser.setMonitorState("monitor2", 1);
+    // },15257);
+    //
+    // setTimeout(function(){
+    //   var x = 1;
+    //   twinkleCount = 0;
+    //   twinkle(x);
+    // },18898);
+    //
+    // setTimeout(function(){
+    //   var x = 1;
+    //   twinkleCount = 0;
+    //   twinkle(x);
+    // },32778);
+    //
+    // function twinkle(x){
+    //   setTimeout(function(){
+    //     var y;
+    //     if(x === 0){
+    //       x = 1;
+    //       y = 0;
+    //     }else{
+    //       x = 0;
+    //       y = 1;
+    //     }
+    //     analyser.setMonitorState("monitor0", x);
+    //     analyser.setMonitorState("monitor1", y);
+    //     analyser.setMonitorState("monitor2", x);
+    //
+    //     if(twinkleCount < 10){
+    //       twinkleCount++;
+    //       twinkle(x);
+    //     }else{
+    //       analyser.setMonitorState("monitor0", 1);
+    //       analyser.setMonitorState("monitor1", 1);
+    //       analyser.setMonitorState("monitor2", 1);
+    //     }
+    //   }, 300);
+    //
+    // }
 
     ///Beginning
     // setTimeout(function(){$toplayer.show()},0);

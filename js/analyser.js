@@ -23,16 +23,47 @@ var freqByteData = new Uint8Array(analyser.frequencyBinCount);
 audioSource.connect(analyser);
 analyser.connect(audioContext.destination);
 
+audioSource.connect(analyser2);
+analyser2.connect(audioContext.destination);
+
 // 获取数据
 function getData() {
-    analyser2.getByteTimeDomainData(timeDomainData);
-    console.log(timeDomainData);
+
+    analyser2.getByteFrequencyData(timeDomainData);
+    var total = 0;
+    for(var i = 0; i < timeDomainData.length; i++) {
+        total += timeDomainData[i];
+    }
+    var avg = total / timeDomainData.length;
+
+    if(avg >= 77){
+      this.setMonitorState("monitor0", 1);
+      this.setMonitorState("monitor1", 1);
+      this.setMonitorState("monitor2", 1);
+    }
+
+    if(avg > 74 && avg < 77){
+      this.setMonitorState("monitor0", 0);
+      this.setMonitorState("monitor1", 1);
+      this.setMonitorState("monitor2", 0);
+    }
+
+    if(avg <= 74){
+      this.setMonitorState("monitor0", 0);
+      this.setMonitorState("monitor1", 0);
+      this.setMonitorState("monitor2", 0);
+    }
+    //console.log(avg);
     // return dataArray;
-    //console.log(freqByteData);
+
     analyser.getByteFrequencyData(freqByteData);
-    freqByteData[0] = monitors.monitor0;
-    freqByteData[1] = monitors.monitor1;
-    freqByteData[2] = monitors.monitor2;
+    freqByteData[0] = 1;
+    freqByteData[1] = 2;
+    freqByteData[2] = 3;
+    freqByteData[3] = monitors.monitor0;
+    freqByteData[4] = monitors.monitor1;
+    freqByteData[5] = monitors.monitor2;
+    // console.log(freqByteData);
     return freqByteData;
 }
 

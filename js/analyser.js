@@ -4,6 +4,7 @@ define(['util'], function (util) {
 var audio = util.getById('music'),
     audioContext = new AudioContext(),
     analyser = audioContext.createAnalyser(),
+    analyser2 = audioContext.createAnalyser(),
     audioSource = audioContext.createMediaElementSource(audio);
 
 var monitors = {};
@@ -12,7 +13,8 @@ monitors.monitor1 = 0;
 monitors.monitor2 = 0;
 
 analyser.fftSize = 512;
-//var dataArray = new Uint8Array(analyser.fftSize);
+analyser2.fftSize = 32;
+var timeDomainData = new Uint8Array(analyser2.fftSize);
 var freqByteData = new Uint8Array(analyser.frequencyBinCount);
 
 // 连接音频源跟分析器
@@ -21,8 +23,8 @@ analyser.connect(audioContext.destination);
 
 // 获取数据
 function getData() {
-    // analyser.getByteTimeDomainData(dataArray);
-    // console.log(dataArray);
+    analyser2.getByteTimeDomainData(timeDomainData);
+    console.log(timeDomainData);
     // return dataArray;
     analyser.getByteFrequencyData(freqByteData);
     freqByteData[0] = monitors.monitor0;
